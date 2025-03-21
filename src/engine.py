@@ -91,39 +91,41 @@ class Value:
 
     def relu(self):
         x = self.data
-        r = max(0, x)  
+        r = max(0, x)
         out = Value(r, (self,), "relu")
 
         def _backward():
-            self.grad += (1 if x > 0 else 0) * out.grad  
+            self.grad += (1 if x > 0 else 0) * out.grad
 
         out._backward = _backward
         return out
 
-    def pow(self , other):
-        assert isinstance(other , (int,float))
+    def pow(self, other):
+        assert isinstance(other, (int, float))
         x = self.data
-        out = Value(x**other , (self , ) , f'**{other}')
+        out = Value(x**other, (self,), f"**{other}")
+
         def _backward():
-            self.grad += other * x**(other - 1) * out.grad
+            self.grad += other * x ** (other - 1) * out.grad
+
         out._backward = _backward
         return out
-    
+
     def backward(self):
         stack = []
         visited = set()
-        
+
         def dfs(node):
             if node in visited:
                 return
             visited.add(node)
-            if hasattr(node, '_prev'):  
+            if hasattr(node, "_prev"):
                 for child in node._prev:
-                    if isinstance(child, Value):  
+                    if isinstance(child, Value):
                         dfs(child)
             stack.append(node)
-        
+
         dfs(self)
         self.grad = 1.0
-        for node  in stack[::-1]:
+        for node in stack[::-1]:
             node._backward()
