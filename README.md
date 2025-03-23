@@ -1,6 +1,6 @@
 # Breast-Cancer-Classification-using-Custom-Neural-Network
 
-![Breast Cancer Classification](https://www.researchgate.net/publication/339644979/figure/fig1/AS:864966982782976@1583235607290/Example-of-an-artificial-neural-network-ANN-with-three-input-variables-one-hidden.jpg)
+![Breast Cancer Classification](https://github.com/AshishRaj04/Breast-Cancer-Classification-using-Custom-Neural-Network/blob/main/results/attribute_histogram_plots.png)
 
 ## Project Overview
 This project focuses on classifying breast cancer tumors as Malignant (cancerous) or Benign (non-cancerous) using a custom neural network. The dataset used is the Breast Cancer Wisconsin (Diagnostic) Dataset from Kaggle.
