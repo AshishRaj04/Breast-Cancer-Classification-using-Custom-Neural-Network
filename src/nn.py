@@ -25,7 +25,7 @@ class Neuron:
 
 
 class Layer:
-    def __init__(self, nin, nout):
+    def __init__(self, nin, nout , activation="tanh"):
         if (
             not isinstance(nin, int)
             or nin <= 0
@@ -33,7 +33,7 @@ class Layer:
             or nout <= 0
         ):
             raise ValueError("nin and nout must be positive integers")
-        self.neurons = [Neuron(nin) for _ in range(nout)]
+        self.neurons = [Neuron(nin, activation) for _ in range(nout)]
 
     def __call__(self, x):
         outs = [n(x) for n in self.neurons]
@@ -48,15 +48,20 @@ class Layer:
 
 
 class MLP:
-    def __init__(self, nin, nouts):
+    def __init__(self, nin, nouts , activations=None):
         if not isinstance(nin, int) or nin <= 0:
             raise ValueError("nin must be a positive integer")
         if not isinstance(nouts, (list, tuple)) or not all(
             isinstance(n, int) and n > 0 for n in nouts
         ):
             raise ValueError("nouts must be a list/tuple of positive integers")
+        if activations is None:
+            activations = ["tanh"] * (len(nouts) - 1) + ["sigmoid"]  # Default ReLU for hidden, Sigmoid for output
+        
+        if len(activations) != len(nouts):
+            raise ValueError("activations list must match number of layers")
         sz = [nin] + nouts
-        self.layers = [Layer(sz[i], sz[i + 1]) for i in range(len(nouts))]
+        self.layers = [Layer(sz[i], sz[i + 1], activations[i]) for i in range(len(nouts))]
 
     def __call__(self, x):
         for layer in self.layers:
