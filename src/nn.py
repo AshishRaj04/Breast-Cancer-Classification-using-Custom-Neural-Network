@@ -3,19 +3,23 @@ from src.engine import Value
 
 
 class Neuron:
-    def __init__(self, nin):
+    def __init__(self, nin, activation="tanh"):
         if not isinstance(nin, int) or nin <= 0:
             raise ValueError("nin must be a positive integer")
         self.w = [Value(random.random()) for _ in range(nin)]
         self.b = Value(0)
+        
+        
+        activations = {"tanh": Value.tanh, "sigmoid": Value.sigmoid, "relu": Value.relu}
+        if activation not in activations:
+            raise ValueError(f"Unsupported activation: {activation}")
+        self.activation = activations[activation]
 
     def __call__(self, x):
         if len(x) != len(self.w):
             raise ValueError(f"Expected input of size {len(self.w)}, but got {len(x)}")
         z = sum((wi * xi for wi, xi in zip(self.w, x)), self.b)
-        out = z.tanh()
-        return out
-
+        return self.activation(z)  
     def parameters(self):
         return self.w + [self.b]
 

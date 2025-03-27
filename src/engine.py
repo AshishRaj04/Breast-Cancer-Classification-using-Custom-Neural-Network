@@ -110,6 +110,26 @@ class Value:
 
         out._backward = _backward
         return out
+    
+    def log(self):
+        x = self.data
+        out = Value(math.log(x), (self,), "log")
+
+        def _backward():
+            self.grad += (1 / x) * out.grad
+
+        out._backward = _backward
+        return out
+    
+    def mean(self):
+        out = Value(self.data / len(self._prev) if self._prev else self.data, (self,), "mean")
+
+        def _backward():
+            for v in self._prev:
+                v.grad += (1 / len(self._prev)) * out.grad
+
+        out._backward = _backward
+        return out
 
     def backward(self):
         stack = []
