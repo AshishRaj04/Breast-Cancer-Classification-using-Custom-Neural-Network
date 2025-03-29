@@ -1,7 +1,6 @@
 import random
 from src.engine import Value
 
-
 class Neuron:
     def __init__(self, nin, activation="tanh"):
         if not isinstance(nin, int) or nin <= 0:
@@ -10,7 +9,7 @@ class Neuron:
         self.b = Value(0)
         
         
-        activations = {"tanh": Value.tanh, "sigmoid": Value.sigmoid, "relu": Value.relu}
+        activations = {"tanh": Value.tanh, "sigmoid": Value.sigmoid}
         if activation not in activations:
             raise ValueError(f"Unsupported activation: {activation}")
         self.activation = activations[activation]
