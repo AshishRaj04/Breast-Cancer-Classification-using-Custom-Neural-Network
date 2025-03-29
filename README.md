@@ -1,6 +1,6 @@
 # Breast-Cancer-Classification-using-Custom-Neural-Network
 
-![Breast Cancer Classification](https://github.com/AshishRaj04/Breast-Cancer-Classification-using-Custom-Neural-Network/blob/main/results/loss vs epoch fro df_transformed.png)
+![Breast Cancer Classification](https://github.com/AshishRaj04/Breast-Cancer-Classification-using-Custom-Neural-Network/blob/main/results/loss%20vs%20epoch%20fro%20df_transformed.png)
 
 ## Project Overview
 This project focuses on classifying breast cancer tumors as Malignant (cancerous) or Benign (non-cancerous) using a custom neural network. The dataset used is the Breast Cancer Wisconsin (Diagnostic) Dataset from Kaggle.
